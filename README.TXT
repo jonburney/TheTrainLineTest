@@ -38,3 +38,4 @@ Your task:
   get started or visit http://git-scm.com/ for the official git client.  
   - If you need a copy of visual studio you can use the free edition available
   to download from: http://www.visualstudio.com/downloads/
+
