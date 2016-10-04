@@ -11,7 +11,7 @@ namespace AddressProcessing.CSV
 
         /// <summary>Write a line to the file async</summary>
         /// <param name="line">The line to write</param>
-        Task WriteLine(string line);
+        void WriteLine(string line);
 
         /// <summary>Write columns to the CSV</summary>
         /// <param name="columns"></param>

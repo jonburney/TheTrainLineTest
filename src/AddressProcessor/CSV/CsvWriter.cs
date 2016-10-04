@@ -49,7 +49,7 @@ namespace AddressProcessing.CSV
             }
             
             // Ideally we would use await here but we need to make this method async which will break b/c
-            WriteLine(outPut).RunSynchronously();
+            WriteLine(outPut);
         }
 
         /// <summary>Open a file for writing</summary>
@@ -76,7 +76,7 @@ namespace AddressProcessing.CSV
 
         /// <summary>Write a line to the file async</summary>
         /// <param name="line">The line to write</param>
-        public async Task WriteLine(string line)
+        public async void WriteLine(string line)
         {
             CheckStreamWriterInit();
             await _csvWriter.WriteLineAsync(line);

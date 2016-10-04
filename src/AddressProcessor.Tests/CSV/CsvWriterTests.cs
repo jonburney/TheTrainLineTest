@@ -25,13 +25,62 @@ namespace Csv.Tests
             _csvWriter = new CsvWriter();
         }
 
+
+        [Test]
+        public void TestWritingLineHandlesMultipleColumns()
+        {
+            string fileName = GetTempFileName();
+            _csvWriter.Open(fileName);
+
+            List<string[]> linevalues = new List<string[]>()
+            {
+                new string[] { "Column 1" },
+                new string[] { "Column 1", "Column 2" },
+                new string[] { "Column 1", "Column 2", "Column 3" },
+            };
+
+            foreach (string[] line in linevalues)
+            {
+                _csvWriter.Write(line);
+            }
+
+            _csvWriter.Close();
+
+            StreamReader reader = new StreamReader(fileName);
+
+            for (int i = 0; i < linevalues.Count; i++)
+            {
+                string lineValue = reader.ReadLine();
+                string[] lineArray = lineValue.Split('\t');
+
+                Assert.AreEqual(linevalues[i].Length, lineArray.Length);
+                for (int j = 0; j < linevalues[i].Length; j++)
+                {
+                    Assert.AreEqual(linevalues[i][j], lineArray[j]);
+                }
+            }
+            
+            reader.Close();
+            reader.Dispose();
+            reader = null;
+        }
+        
+
         [Test]
         public void TestCallingWriteBeforeOpenThrowsException()
         {
             Assert.Throws<StreamWriterNotInitialisedException>(async delegate
             {
-               await _csvWriter.WriteLine("This Is a Test");
+               _csvWriter.WriteLine("This Is a Test");
             });
         }
+
+        private string GetTempFileName()
+        {
+            return Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+        }
+
+
+
     }
 }
