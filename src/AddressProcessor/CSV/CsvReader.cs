@@ -99,7 +99,8 @@ namespace AddressProcessing.CSV
             if (line == null) return null;
             columns = line.Split(separator);
 
-            if (columns.Length == 0) return null;
+            // Check we have to columns returned otherwise we can't populate the Contact object correctly 
+            if (columns.Length < 2) return null;
             
             return new Contact()
             {
